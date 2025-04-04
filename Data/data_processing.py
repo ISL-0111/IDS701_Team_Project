@@ -3,9 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load parquet file
-df = pd.read_parquet(
-    "delivery_sh-00000-of-00001-ad9a4b1d79823540.parquet"
-)  # Shanghai dataset
+df = pd.read_parquet("delivery_sh-00000-of-00001-ad9a4b1d79823540.parquet")  # Shanghai dataset
 
 """
     LaDe is a publicly available last-mile delivery dataset with millions of packages from industry. 
@@ -24,12 +22,12 @@ df.tail(20)
 # df.columns
 # df.shape # MM1.4 observations, 17 variables
 
-# Date data extraction
-df["accept_date"] = df["accept_time"].dt.date
-df.head(5)
 
-# Haversine Distance 
+"""
+    0. Data preprocessing
+"""
 
+# Haversine Distance between pickup and delivery points
 from geopy.distance import geodesic
 
 def haversine_distance(row):
@@ -78,6 +76,11 @@ df["delivery_gps_time"] = df["delivery_gps_time"].apply(
 print(
     df[["accept_time", "delivery_time", "accept_gps_time", "delivery_gps_time"]].head()
 )
+
+# Date extraction
+df["accept_date"] = df["accept_time"].dt.date
+df_sample = df.head(200)
+
 
 
 """
