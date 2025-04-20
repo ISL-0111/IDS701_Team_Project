@@ -19,6 +19,9 @@ delivery hour zone: Select the most frequent hour during the day
 Unit of Analysis: courier-day (courier_id + ds)
 Estimation : covariate-adjusted linear regression (Using Continuous variable)
 (e.g) avg_delivery_duration_minutes ~ task_count + avg_distance_km + C(region_id) + C(aoi_id) + C(delivery_hour_mode)
+
+!! The values for region_id and aoi_id are just numeric codes with no public mapping to actual locations or district types, so they can only be used as fixed effects, not for interpretation. !!
+
 * isolating the effect of increased task load on average delivery time per task, controlling for key confounding factors.
 
 Implication(hypothetical) : Overloaded delivery workloads lead to longer task durations, which may increase CO₂ emissions through extended vehicle operation and idle time. This implies that task allocation optimization is not only relevant to operational efficiency, but also to environmental sustainability, particularly in the context of ESG-focused logistics operations.
