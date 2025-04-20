@@ -1,14 +1,13 @@
-[Research Question]
-**Does assigning more tasks to a courier in a day increase the average delivery time per task, even after controlling for delivery distance and regional variation?**
-https://docs.google.com/document/d/1FWvHJf7PiYHRKt898vxAXaCYm8M9A30BcwE5UStoIGs/edit?tab=t.46ivr93g3wxd#heading=h.upwtpbiusum
-
-[Data]
+**Data**
 LaDe: The First Comprehensive Last-mile Delivery Dataset from Industry
 (Paper : https://arxiv.org/abs/2306.10675, Git : https://github.com/wenhaomin/LaDe)
 
-[Research Plan]
+**Research Question**
 
-Q. Does assigning more tasks to a courier in a day increase the average delivery time per task, even after controlling for delivery distance and regional variation?
+**Does assigning more tasks to a courier in a day increase the average delivery time per task, even after controlling for delivery distance and regional variation?**
+https://docs.google.com/document/d/1FWvHJf7PiYHRKt898vxAXaCYm8M9A30BcwE5UStoIGs/edit?tab=t.46ivr93g3wxd#heading=h.upwtpbiusum
+
+_Q. Does assigning more tasks to a courier in a day increase the average delivery time per task, even after controlling for delivery distance and regional variation?_
 
 <Motivation> We initially explored the environmental implications of last-mile delivery operations, particularly in terms of CO₂ emissions. Based on those findings, we now focus on the operational factor most likely to influence emissions indirectly: delivery time. Our causal question investigates whether increasing task volume per courier leads to longer delivery times, which, in turn, could exacerbate emissions. This link allows us to move from exploratory observations to a policy-relevant causal mechanism/
 
@@ -31,3 +30,11 @@ Implication(hypothetical) : Overloaded delivery workloads lead to longer task du
 **Memo**
 - Using top 5 or 10 regionID (based on # of observations)
 
+
+
+
+
+
+**Data**
+LaDe: The First Comprehensive Last-mile Delivery Dataset from Industry
+(Paper : https://arxiv.org/abs/2306.10675, Git : https://github.com/wenhaomin/LaDe)
