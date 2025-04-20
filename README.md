@@ -28,10 +28,11 @@ Implication(hypothetical) : Overloaded delivery workloads lead to longer task du
 
 **Memo**
 - Using top 5 or 10 regionID (based on # of observations)
-- Defining specific time span ? (1 week, 1 month etc)
+- Defining specific time span ? (1 week, 1 month etc) -> if so, it should be included in our control variable
 
-
-
+(Step0) Data Preprocessing + EDA
+(Step1) Identifying thresholds(# of deliveries a day per courierID),estimating the causal effect on delivery time using a continuous treatment model. Examining the marginal impact of assigning additional tasks
+(Step2) Based on threshold from step1, Defining a binary treatment variable (overloaded vs. non-overloaded) and compare the outcomes using t-test
 
 
 **Data**
