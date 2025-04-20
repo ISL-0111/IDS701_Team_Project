@@ -28,3 +28,6 @@ Estimation : covariate-adjusted linear regression (Using Continuous variable)
 
 Implication(hypothetical) : Overloaded delivery workloads lead to longer task durations, which may increase CO₂ emissions through extended vehicle operation and idle time. This implies that task allocation optimization is not only relevant to operational efficiency, but also to environmental sustainability, particularly in the context of ESG-focused logistics operations.
 
+**Memo**
+- Using top 5 or 10 regionID (based on # of observations)
+
