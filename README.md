@@ -25,7 +25,7 @@ Implication(hypothetical) : Overloaded delivery workloads lead to longer task du
 
 **Memo**
 - Using top 5 or 10 regionID (based on # of observations)
-
+- Defining specific time span ? (1 week, 1 month etc)
 
 
 
