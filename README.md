@@ -1,7 +1,3 @@
-**Data**
-LaDe: The First Comprehensive Last-mile Delivery Dataset from Industry
-(Paper : https://arxiv.org/abs/2306.10675, Git : https://github.com/wenhaomin/LaDe)
-
 **Research Question**
 
 **Does assigning more tasks to a courier in a day increase the average delivery time per task, even after controlling for delivery distance and regional variation?**
