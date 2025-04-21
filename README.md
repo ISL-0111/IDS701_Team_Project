@@ -34,6 +34,9 @@ Implication(hypothetical) : Overloaded delivery workloads lead to longer task du
 (Step1) Identifying thresholds(# of deliveries a day per courierID),estimating the causal effect on delivery time using a continuous treatment model. Examining the marginal impact of assigning additional tasks
 (Step2) Based on threshold from step1, Defining a binary treatment variable (overloaded vs. non-overloaded) and compare the outcomes using t-test
 
+![image2](https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Data/Others/Screenshot%202025-04-21%20at%209.58.28%E2%80%AFAM.png)
+![image1](https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Data/Others/Screenshot%202025-04-21%20at%209.58.48%E2%80%AFAM.png)
+
 
 **Data**
 LaDe: The First Comprehensive Last-mile Delivery Dataset from Industry
