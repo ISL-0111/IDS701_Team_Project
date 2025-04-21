@@ -81,8 +81,6 @@ print(
 df["accept_date"] = df["accept_time"].dt.date
 df_sample = df.head(200)
 
-
-
 """
     1. Delivery time distribution analysis
 """
@@ -156,7 +154,7 @@ thresholds = [30, 45, 60, 90]
 for t in thresholds:
     count = df_filtered[df_filtered["delivery_duration_minutes"] <= t].shape[0]
     percentage = (count / total_count) * 100
-    print(f"{t}분 이하 배달 건수 비율: {percentage:.2f}%")
+    print(f"{t} {percentage:.2f}%")
 
 
 """
