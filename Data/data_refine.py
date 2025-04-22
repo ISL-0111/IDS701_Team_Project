@@ -41,8 +41,40 @@ df_only_regions=df_only_regions[["order_id","region_id","courier_id","delivery_d
 # Average time per order overall
 driver_overall_delivery_info = df_only_regions.groupby(["courier_id"]).agg(num_unique_days=("accept_date", "nunique"),
     num_unique_orders=("order_id", "nunique"),
+    total_distance=("distance_km","sum"),
     total_delivery_minutes=("delivery_duration_minutes", "sum"),
     avg_delivery_time_per_package_mins=("delivery_duration_minutes", "mean")
 ).reset_index()
 driver_overall_delivery_info["avg_no_orders_per_day"]=driver_overall_delivery_info["num_unique_orders"]/driver_overall_delivery_info["num_unique_days"]
-driver_overall_delivery_info=driver_overall_delivery_info[["courier_id","avg_delivery_time_per_package_mins","avg_no_orders_per_day"]]
+driver_overall_delivery_info["avg_distance_per_day"]=driver_overall_delivery_info["total_distance"]/driver_overall_delivery_info["num_unique_days"]
+driver_overall_delivery_info["avg_distance_per_order"]=driver_overall_delivery_info["total_distance"]/driver_overall_delivery_info["num_unique_orders"]
+driver_overall_delivery_info=driver_overall_delivery_info[["courier_id","avg_delivery_time_per_package_mins","avg_no_orders_per_day","avg_distance_per_order","avg_distance_per_day"]]
+
+
+driver_overall_delivery_info=driver_overall_delivery_info.sort_values(by="avg_no_orders_per_day")
+plt.scatter(driver_overall_delivery_info["courier_id"].astype(str),driver_overall_delivery_info["avg_no_orders_per_day"])
+plt.show()
+
+driver_overall_delivery_info["avg_no_orders_per_day"].describe()
+driver_overall_delivery_info["avg_no_orders_per_day"].median()
+driver_overall_delivery_info["avg_no_orders_per_day"].mean()
+
+# ________________________________________________________________________
+
+# ------- this may work with avg_distance_per_order
+# Split into Treatment/Control
+driver_overall_delivery_info["treatment"] = (driver_overall_delivery_info["avg_no_orders_per_day"] >= driver_overall_delivery_info["avg_no_orders_per_day"].mean()).astype(int)
+driver_overall_delivery_info.to_csv("treatment_control_split.csv")
+
+treatment=driver_overall_delivery_info[driver_overall_delivery_info["treatment"]==1]
+control=driver_overall_delivery_info[driver_overall_delivery_info["treatment"]==0]
+
+treatment["avg_delivery_time_per_package_mins"].mean()
+control["avg_delivery_time_per_package_mins"].mean()
+
+from scipy.stats import ttest_ind
+
+t_stat, p_val = ttest_ind(treatment["avg_delivery_time_per_package_mins"], control["avg_delivery_time_per_package_mins"], equal_var=False)  # Welch’s t-test is safer
+
+print(f"T-statistic: {t_stat:.4f}")
+print(f"P-value: {p_val:.4f}")
