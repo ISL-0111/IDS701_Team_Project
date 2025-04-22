@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
 import statsmodels.formula.api as smf
+import matplotlib.pyplot as plt
 
 df = pd.read_parquet(
     r"C:\Users\DELL\UDS Project\IDS701_Team_Project\Data\cleaned_data.parquet"
 )
-df["accept_hour"] = df["accept_time"]
+df["accept_hour"] = df["accept_time"].dt.hour
 # --- Step 1: Filter Data for Top Regions ---
 n_regions_under_consideration = 14
 top_regions = df["region_id"].value_counts().head(n_regions_under_consideration).index
@@ -53,7 +54,7 @@ model = smf.ols(
 # --- Step 5: Print Results ---
 print(model.summary())
 
-# --- Optional: Diagnostic Checks ---
+# --- Diagnostic Checks ---
 # Check for multicollinearity
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
@@ -70,8 +71,6 @@ print(
 )
 
 # Check residuals
-import matplotlib.pyplot as plt
-
 plt.scatter(model.fittedvalues, model.resid)
 plt.xlabel("Fitted Values")
 plt.ylabel("Residuals")
