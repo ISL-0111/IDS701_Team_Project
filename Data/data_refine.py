@@ -105,3 +105,6 @@ t_stat, p_val = ttest_ind(treatment["avg_delivery_time_per_package_mins"], contr
 
 print(f"T-statistic: {t_stat:.4f}")
 print(f"P-value: {p_val:.4f}")
+
+
+print(driver_overall_delivery_info)

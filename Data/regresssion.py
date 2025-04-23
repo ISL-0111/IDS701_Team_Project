@@ -106,3 +106,8 @@ plt.show()
 # Breusch-Pagan Test for heteroscedasticity
 bp_test = het_breuschpagan(model.resid, model.model.exog)
 print("P-value:", bp_test[1])  # <0.05 confirms heteroscedasticity
+
+
+
+
+
