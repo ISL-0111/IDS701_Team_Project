@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import statsmodels.formula.api as smf
 import matplotlib.pyplot as plt
 
@@ -47,9 +46,9 @@ daily_agg["high_load"] = (daily_agg["task_count"] > median_daily_tasks).astype(i
 
 # --- Step 4: Run Regression ---
 model = smf.ols(
-    formula="avg_delivery_duration_min ~ task_count * high_load + avg_distance_km + C(delivery_hour_mode)",
+    formula="np.log(avg_delivery_duration_min) ~ task_count * high_load + avg_distance_km + C(delivery_hour_mode)",
     data=daily_agg,
-).fit()
+).fit(cov_type="HC3")
 
 # --- Step 5: Print Results ---
 print(model.summary())
