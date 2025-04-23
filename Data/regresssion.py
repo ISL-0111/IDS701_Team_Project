@@ -8,7 +8,7 @@ from statsmodels.stats.diagnostic import het_breuschpagan
 import numpy as np
 
 df = pd.read_parquet(
-    r"C:\Users\DELL\UDS Project\IDS701_Team_Project\Data\cleaned_data.parquet"
+    r"https://github.com/ISL-0111/IDS701_Team_Project/raw/refs/heads/main/Data/cleaned_data.parquet"
 )
 df["accept_hour"] = df["accept_time"].dt.hour
 # --- Step 1: Filter Data for Top Regions ---
