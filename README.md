@@ -40,4 +40,4 @@ Implication(hypothetical) : Overloaded delivery workloads lead to longer task du
 
 **Data**
 LaDe: The First Comprehensive Last-mile Delivery Dataset from Industry
-(Paper : https://arxiv.org/abs/2306.10675, Git : https://github.com/wenhaomin/LaDe)
+(Paper : https://arxiv.org/abs/2306.10675, Git : https://github.com/wenhaomin/LaDe) 
