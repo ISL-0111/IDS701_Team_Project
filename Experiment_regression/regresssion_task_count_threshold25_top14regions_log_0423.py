@@ -78,7 +78,7 @@ daily_agg["log_duration"] = np.log(daily_agg["avg_delivery_duration_min"].replac
 q_low, q_high = daily_agg["log_duration"].quantile([0.01, 0.99])
 daily_agg["log_duration"] = daily_agg["log_duration"].clip(lower=q_low, upper=q_high)
 daily_agg.columns
-daily_agg.to_csv("daily_agg_for_ttest.csv", index=False)
+daily_agg.to_csv("daily_agg_for_ttest_top14regions.csv", index=False)
 
 # --- Step 4: Causal Model
 model = smf.ols(
