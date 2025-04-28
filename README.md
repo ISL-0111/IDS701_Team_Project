@@ -1,5 +1,5 @@
-** Reference **
-<< top14 regions, log transformation, threshold 35 tasks >
+**Reference**
+<top14 regions, log transformation, threshold 35 tasks>
 
 <Threshold>
 
