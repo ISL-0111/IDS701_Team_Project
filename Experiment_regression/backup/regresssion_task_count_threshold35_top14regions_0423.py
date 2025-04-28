@@ -60,17 +60,33 @@ daily_agg = (
 daily_agg_sorted = daily_agg.sort_values("task_count")
 rolling_avg = daily_agg_sorted["avg_delivery_duration_min"].rolling(window=100).mean()
 
-plt.plot(daily_agg_sorted["task_count"], rolling_avg, alpha=0.8)
+import statsmodels.api as sm
+
+# Lowess smoothing
+lowess = sm.nonparametric.lowess(
+    daily_agg_sorted["avg_delivery_duration_min"],
+    daily_agg_sorted["task_count"],
+    frac=0.2  # smoothing factor (조정 가능)
+)
+
+# Plot
+plt.figure(figsize=(8,6))
+plt.plot(daily_agg_sorted["task_count"], daily_agg_sorted["avg_delivery_duration_min"], '.', alpha=0.3, label="Raw Data")
+plt.plot(lowess[:, 0], lowess[:, 1], 'r-', label="Lowess Smoothed")
 plt.xlabel("Task Count")
-plt.ylabel("Rolling Avg Delivery Time")
-plt.title("Rolling Average of Delivery Time by Task Count")
+plt.ylabel("Avg Delivery Time (minutes)")
+plt.title("Smoothed Average Delivery Time by Task Count")
+plt.ylim(0, 150) # data limit to 250
+plt.legend()
+plt.grid()
 plt.show()
+## threshold 35 
 
 # --- Piecewise Regression for Visual Threshold Estimation (optional simulated data) ---
 np.random.seed(42)
 task_count = np.sort(np.random.randint(1, 75, size=500))
 delivery_time = 200 - 2 * task_count + np.random.normal(0, 10, size=500)
-delivery_time[task_count > 25] += 1.2 * (task_count[task_count > 25] - 25)
+delivery_time[task_count > 35] += 1.2 * (task_count[task_count > 35] - 35)
 
 df_piecewise = pd.DataFrame({
     "task_count": task_count,
@@ -98,8 +114,8 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-# --- Step 3: Set Fixed Threshold = 25 ---
-threshold = 25
+# --- Step 3: Set Fixed Threshold = 35 ---
+threshold = 35
 daily_agg["high_load"] = (daily_agg["task_count"] > threshold).astype(int)
 daily_agg["task_count_c"] = daily_agg["task_count"] - threshold
 
@@ -116,7 +132,7 @@ q_low, q_high = daily_agg["avg_delivery_duration_min"].quantile([0.01, 0.99])
 daily_agg["duration_trimmed"] = daily_agg["avg_delivery_duration_min"].clip(lower=q_low, upper=q_high)
 
 # --- Save Cleaned Data ---
-daily_agg.to_csv("daily_agg_for_ttest_14regions.csv", index=False)
+daily_agg.to_csv("daily_agg_for_ttest_14regions_t35.csv", index=False)
 print("File saved successfully.")
 
 # --- Step 4: Causal Model Without Log Transformation ---
@@ -157,3 +173,37 @@ plt.show()
 
 bp_test = het_breuschpagan(model.resid, model.model.exog)
 print(f"Breusch-Pagan p-value (No Log): {bp_test[1]:.4f}")
+
+
+### Not yet ###
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sort by task_count
+daily_agg_sorted = daily_agg.sort_values("task_count")
+
+# Define bin size
+bin_size = 3  # you can adjust (e.g., every 3 tasks)
+
+# Create task_count bins
+daily_agg_sorted['task_count_bin'] = (daily_agg_sorted['task_count'] // bin_size) * bin_size
+
+# Calculate mean delivery duration by bin
+bin_summary = (
+    daily_agg_sorted.groupby('task_count_bin')
+    .agg(avg_duration=('avg_delivery_duration_min', 'mean'), count=('avg_delivery_duration_min', 'size'))
+    .reset_index()
+)
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(bin_summary['task_count_bin'], bin_summary['avg_duration'], marker='o', linestyle='-', label="Binned Average")
+plt.xlabel("Task Count (Binned)")
+plt.ylabel("Avg Delivery Time (minutes)")
+plt.title("Average Delivery Duration by Task Count (Binned)")
+plt.grid(True)
+plt.axvline(x=35, color='red', linestyle='--', label='Threshold = 35')
+plt.legend()
+plt.show()
