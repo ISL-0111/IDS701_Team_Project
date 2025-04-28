@@ -1,8 +1,9 @@
 ** Reference **
 << top14 regions, log transformation, threshold 35 tasks >
+
 <Threshold>
             (1) piecewise (https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Data/regression_piecewise.py)
-            (2) Gam regression ([https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Data/pygam_threshold.png](https://github.com/ISL 0111/IDS701_Team_Project/blob/main/Data/regression_pygam.ipynb))
+            (2) Gam regression (![https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Data/pygam_threshold.png](https://github.com/ISL 0111/IDS701_Team_Project/blob/main/Data/regression_pygam.ipynb))
 <ttest> https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Experiment/ttest.ipynb
 <Regression> https://github.com/ISL-0111/IDS701_Team_Project/blob/main/Experiment/regresssion_task_count_threshold35_top14regions_log_0423.py
 
