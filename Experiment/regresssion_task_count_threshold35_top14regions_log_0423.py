@@ -206,3 +206,29 @@ plt.show()
 # Breusch-Pagan Test
 bp_test = het_breuschpagan(model.resid, model.model.exog)
 print(f"Breusch-Pagan p-value: {bp_test[1]:.4f}")
+
+
+# --- Interpretation of the results ---
+## How much time does each additional task take when the courier is already under 'high load'?
+
+# Step 1: Coefficient from the causal model
+beta = 0.0140  # Coefficient for task_count_c * high_load
+
+# Step 2: Convert log effect to percentage change
+percent_change = (np.exp(beta) - 1) * 100
+print(f"Percentage change per task under high load: {percent_change:.2f}%")
+
+# Step 3: Assume baseline average delivery time under high load
+baseline_minutes = 95.17  # from Yiran's t-test result
+
+# Step 4: Calculate actual minutes increase per additional task
+minutes_increase = baseline_minutes * (np.exp(beta) - 1)
+print(f"Estimated delivery time increase per additional task: {minutes_increase:.2f} minutes")
+
+# Final Interpretation Summary
+print(f"""
+Conclusion:
+When a courier is under high load (more than 35 tasks per day),
+each additional task is estimated to increase the average delivery duration by approximately {minutes_increase:.2f} minutes,
+equivalent to a {percent_change:.2f}% increase over the baseline of {baseline_minutes} minutes.
+""")
